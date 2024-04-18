@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import "./Dealers.css";
@@ -26,11 +25,12 @@ const Dealer = () => {
   const get_dealer = async () => {
     try {
       const res = await fetch(dealer_url, { method: "GET" });
-      const retobj = await res.json();
-
-      if (retobj.status === 200) {
-        let dealerobjs = Array.from(retobj.dealer)
-        setDealer(dealerobjs[0])
+      let retobj = await res.json();
+  
+      console.log(retobj); // Log the returned data to the console
+  
+      if (res.status === 200) {
+        setDealer(retobj.dealer) // Set the dealer state variable to retobj.dealer
       }
     } catch (error) {
       setError('Failed to fetch dealer');
@@ -42,6 +42,8 @@ const Dealer = () => {
     try {
       const res = await fetch(reviews_url, { method: "GET" });
       const retobj = await res.json();
+
+      console.log(retobj); // Log the returned data to the console
 
       if (retobj.status === 200) {
         if (retobj.reviews.length > 0) {
@@ -80,8 +82,8 @@ const Dealer = () => {
         <div>Loading Dealer...</div>
       ) : (
         <div style={{ marginTop: "10px" }}>
-          <h1 style={{ color: "grey" }}>{dealer?.full_name}{postReview}</h1>
-          <h4 style={{ color: "grey" }}>{dealer?.city},{dealer?.address}, Zip - {dealer?.zip}, {dealer?.state} </h4>
+          <h1 style={{ color: "grey" }}>{dealer.full_name}{postReview}</h1>
+          <h4 style={{ color: "grey" }}>{dealer.city},{dealer.address}, Zip - {dealer.zip}, {dealer.state} </h4>
         </div>
       )}
       <div class="reviews_panel">
