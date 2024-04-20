@@ -12,7 +12,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
     - name: Checkout Repository
       uses: actions/checkout@v3
     
@@ -36,22 +35,20 @@ jobs:
         echo "Linted all the python files successfully"
 
   lint_js:
-      name: Lint JavaScript Files
-      runs-on: ubuntu-latest
+    name: Lint JavaScript Files
+    runs-on: ubuntu-latest
 
-      steps:
-      - name: Checkout Repository
-        uses: actions/checkout@v3
+    steps:
+    - name: Checkout Repository
+      uses: actions/checkout@v3
 
-      - name: Install Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: 20
+    - name: Install Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
 
-      - name: Install JSHint
-        run: npm install jshint --global
+    - name: Install dependencies
+      run: npm install
 
-      - name: Run Linter
-        run: |
-          find . -name "*.js" -exec jshint {} +
-          echo "Linted all the js files successfully"
+    - name: Run ESLint
+      run: npx eslint "**/*.js"
