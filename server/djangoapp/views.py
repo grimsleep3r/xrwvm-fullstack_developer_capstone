@@ -92,6 +92,7 @@ def registration(request):
         data = {"userName": username, "error": "Already Registered"}
         return JsonResponse(data)
 
+
 def get_dealerships(request, state="All"):
     if state == "All":
         endpoint = "/fetchDealers"
